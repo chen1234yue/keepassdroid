@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/info_save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="@string/info_save" />
+
+    <Button
+        android:id="@+id/info_cancel_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/info_save_button"
+        android:text="@string/info_cancel" />
+
+    <View
+        android:id="@+id/info_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_above="@+id/info_save_button" />
+
+    <com.keepassdroid.view.NoFocusScrollView
+        android:layout_width="match_parent"
+        android:layout_height="461dp"
+        android:layout_alignParentTop="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="461dp">
+
+            <TextView
+                android:id="@+id/info_name_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/info_name" />
+
+            <EditText
+                android:id="@+id/info_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_name_label"
+                android:ems="10"
+                android:hint="@string/info_name"
+                android:inputType="textPersonName" />
+
+            <View
+                android:id="@+id/divider_infoname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_name" />
+
+            <TextView
+                android:id="@+id/info_password_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_name"
+                android:text="@string/info_password" />
+
+            <EditText
+                android:id="@+id/info_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_password_label"
+                android:ems="10"
+                android:hint="@string/info_password"
+                android:inputType="numberPassword" />
+
+            <View
+                android:id="@+id/divider_infopassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_password" />
+
+            <TextView
+                android:id="@+id/info_email_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_password"
+                android:text="@string/info_email" />
+
+            <EditText
+                android:id="@+id/info_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_email_label"
+                android:ems="10"
+                android:hint="@string/info_email"
+                android:inputType="textEmailAddress" />
+
+            <View
+                android:id="@+id/divider_infoemail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_email" />
+
+            <TextView
+                android:id="@+id/info_handphone_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_email"
+                android:text="@string/info_handphone" />
+
+            <EditText
+                android:id="@+id/info_handphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:ems="10"
+                android:hint="@string/info_handphone"
+                android:inputType="phone" />
+
+            <View
+                android:id="@+id/divider_infohandphone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_handphone" />
+
+            <Button
+                android:id="@+id/info_change_password_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="73dp"
+                android:text="@string/info_change_password" />
+
+        </RelativeLayout>
+    </com.keepassdroid.view.NoFocusScrollView>
+
+</RelativeLayout>

@@ -60,10 +60,10 @@ public class LoadDB extends RunnableOnFinish {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         mRememberKeyfile = prefs.getBoolean(ctx.getString(R.string.keyfile_key), ctx.getResources().getBoolean(R.bool.keyfile_default));
     }
-
     @Override
     public void run() {
         try {
+
             mDb.LoadData(mCtx, mUri, mPass, mKey, mStatus);
 
             saveFileData(mUri, mKey);
@@ -116,7 +116,5 @@ public class LoadDB extends RunnableOnFinish {
 
         App.getFileHistory().createFile(uri, key);
     }
-
-
 
 }

@@ -67,6 +67,17 @@
     <string name="entry_title">名称：</string>
     <string name="entry_url">网址：</string>
     <string name="entry_user_name">用户名：</string>
+    <string name="info_save">保存</string>
+    <string name="info_cancel">取消</string>
+    <string name="info_name">用户名</string>
+    <string name="info_password">密码</string>
+    <string name="info_email">邮箱</string>
+    <string name="info_handphone">手机号码</string>
+    <string name="menu_fill_infomation">完善个人信息</string>
+    <string name="info_change_password">修改密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="findpassword_title">输入发送到你邮箱的验证码</string>
+    <string name="input_indentifying_code">请输入验证码</string>
     <string name="error_arc4">ArcFour流密码不被支持。</string>
     <string name="error_can_not_handle_uri">KeePassDroid无法处理此URI。</string>
     <string name="error_could_not_create_group">创建群组错误。</string>
@@ -79,6 +90,9 @@
     <string name="error_invalid_db">非法数据库。</string>
     <string name="error_invalid_path">非法路径。</string>
     <string name="error_no_name">用户名是必须的。</string>
+    <string name="error_no_code">验证码不能为空</string>
+    <string name="incorrect_code">验证码错误</string>
+    <string name="illegal_email_address">邮箱地址不合法</string>
     <string name="error_nopass">密码或者密钥文件是必须的。</string>
     <string name="error_out_of_memory">这款手机运行内存不足而不能解析数据库。这可能是数据库太大的缘故。</string>
     <string name="error_pass_gen_type">至少必须选择一个密码生成类型</string>

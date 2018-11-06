@@ -30,6 +30,11 @@ public class PwDatabaseV4XML {
     public static final String ElemRoot = "Root";
     public static final String ElemGroup = "Group";
     public static final String ElemEntry = "Entry";
+    public static final String ElemSelfInfo = "SelfInfo";
+
+    public static final String ElemSelfName = "SelfName";
+    public static final String ElemSelfEmail = "SelfEmail";
+    public static final String ElemSelfHandphone = "SelfHandphone";
 
     public static final String ElemGenerator = "Generator";
     public static final String ElemHeaderHash = "HeaderHash";

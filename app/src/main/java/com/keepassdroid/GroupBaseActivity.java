@@ -226,16 +226,24 @@ public abstract class GroupBaseActivity extends LockCloseListActivity {
 		case R.id.menu_change_master_key:
 			setPassword();
 			return true;
-			
+
 		case R.id.menu_sort:
 			toggleSort();
 			return true;
+
+			case R.id.menu_fill_infomation:
+				FillInfoActivity.Launch(this);
+				//fillInfomation();
+				return true;
 
 		}
 		
 		return super.onOptionsItemSelected(item);
 	}
-	
+	private void fillInfomation()
+	{
+
+	}
 	private void toggleSort() {
 		// Toggle setting
 		String sortKey = getString(R.string.sort_key);

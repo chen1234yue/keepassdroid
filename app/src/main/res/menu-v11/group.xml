@@ -46,4 +46,7 @@
         android:title="@string/sort_name"
         android:showAsAction="never"
     />
+    <item
+        android:id="@+id/menu_fill_infomation"
+        android:title="@string/menu_fill_infomation" />
 </menu>

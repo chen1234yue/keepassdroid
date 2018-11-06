@@ -69,6 +69,7 @@ import com.android.keepass.R;
 import com.keepassdroid.UpdateStatus;
 import com.keepassdroid.crypto.CipherFactory;
 import com.keepassdroid.database.PwDatabaseV3;
+import com.keepassdroid.database.PwDatabaseV4;
 import com.keepassdroid.database.PwDate;
 import com.keepassdroid.database.PwDbHeader;
 import com.keepassdroid.database.PwDbHeaderV3;

@@ -49,11 +49,17 @@ public abstract class PwDatabase {
 
     public byte masterKey[] = new byte[32];
     public byte[] finalKey;
+    public String pass;
+    public String infoname = new String();
+    public String email = new String();
+    public String handphone = new String();
     public String name = "KeePass database";
     public PwGroup rootGroup;
     public PwIconFactory iconFactory = new PwIconFactory();
     public Map<PwGroupId, PwGroup> groups = new HashMap<PwGroupId, PwGroup>();
     public Map<UUID, PwEntry> entries = new HashMap<UUID, PwEntry>();
+
+
 
 
     private static boolean isKDBExtension(String filename) {
@@ -107,13 +113,30 @@ public abstract class PwDatabase {
 
     public abstract byte[] getMasterKey(String key, InputStream keyInputStream) throws InvalidKeyFileException, IOException;
 
+    public void setMasterKey(byte[] masterKey)
+        throws InvalidKeyFileException, IOException {
+        assert(masterKey != null);
+
+        this.masterKey = masterKey;
+    }
     public void setMasterKey(String key, InputStream keyInputStream)
             throws InvalidKeyFileException, IOException {
                 assert(key != null);
 
                 masterKey = getMasterKey(key, keyInputStream);
             }
-
+    public void setEmail(String email)
+    {
+        this.email=email;
+    }
+    public void setHandphone(String handphone)
+    {
+        this.handphone =handphone;
+    }
+    public void setInfoname(String infoname)
+    {
+        this.infoname = infoname;
+    }
     protected byte[] getCompositeKey(String key, InputStream keyInputStream)
             throws InvalidKeyFileException, IOException {
                 assert(key != null && keyInputStream != null);
@@ -247,6 +270,12 @@ public abstract class PwDatabase {
     public abstract List<PwGroup> getGroups();
 
     public abstract List<PwEntry> getEntries();
+
+    public abstract String getInfoname();
+
+    public abstract String getEmail();
+
+    public abstract String getHandphone();
 
     public abstract long getNumRounds();
 

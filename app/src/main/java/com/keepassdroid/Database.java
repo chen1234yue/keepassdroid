@@ -24,10 +24,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.SyncFailedException;
+import java.io.Writer;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -130,6 +132,7 @@ public class Database {
             Log.e("KPD", "Database::LoadData", e);
             throw ContentFileNotFoundException.getInstance(keyfile);
         }
+
         LoadData(ctx, is, password, kfIs, status, debug, roundsFix);
     }
 
@@ -159,6 +162,7 @@ public class Database {
         if ( pm != null ) {
             PwGroup root = pm.rootGroup;
             pm.populateGlobals(root);
+            pm.pass=password;
             LoadData(ctx, pm, password, kfIs, status);
         }
         loaded = true;
@@ -180,8 +184,30 @@ public class Database {
     public void SaveData(Context ctx) throws IOException, PwDbOutputException {
         SaveData(ctx, mUri);
     }
-
+    public void SaveEmail(Context ctx, Uri uri) throws IOException, PwDbOutputException{
+        if (uri.getScheme().equals("file")) {
+            String filename = uri.getPath();
+            String[] temp = filename.split("/");
+            filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+            File file = new File(filename);
+            if (!file.exists())
+            {
+                file.createNewFile();
+            }
+            FileWriter outputStream = new FileWriter(file);
+            outputStream.write(pm.email+"\n");
+            outputStream.write(pm.pass+"\n");
+            outputStream.close();
+       /*     try {
+                outputStream.getFD().sync();
+            } catch (SyncFailedException e) {
+                // Ignore if fsync fails. We tried.
+            }*/
+        }
+    }
     public void SaveData(Context ctx, Uri uri) throws IOException, PwDbOutputException {
+        //System.out.println(filepath);
+        SaveEmail(ctx,uri);
         if (uri.getScheme().equals("file")) {
             String filename = uri.getPath();
             File tempFile = new File(filename + ".tmp");

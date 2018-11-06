@@ -89,7 +89,7 @@
 			  android:layout_height="wrap_content"
 			  android:layout_below="@id/divider_username" 
 			  android:text="@string/entry_url" />
-			<EditText android:id="@+id/entry_url" 
+			<EditText android:id="@+id/entry_url"
 			  android:layout_width="fill_parent"
 			  android:layout_height="wrap_content"
 			  android:singleLine="true"
@@ -105,7 +105,7 @@
 			<TextView android:id="@+id/entry_password_label"
 			  android:layout_width="wrap_content"
 			  android:layout_height="wrap_content" 
-			  android:layout_below="@id/divider_url" 
+			  android:layout_below="@id/divider_url"
 			  android:text="@string/entry_password" />
 			<Button android:id="@+id/generate_button"
 			  android:layout_below="@id/entry_password_label"
@@ -150,7 +150,7 @@
 			<TextView android:id="@+id/entry_comment_label"
 			  android:layout_width="wrap_content"
 			  android:layout_height="wrap_content" 
-			  android:layout_below="@id/divider_confpassword" 
+			  android:layout_below="@id/divider_confpassword"
 			  android:text="@string/entry_comment" />
 			<EditText android:id="@+id/entry_comment" 
 		      android:inputType="textMultiLine"

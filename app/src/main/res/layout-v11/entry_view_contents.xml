@@ -43,7 +43,7 @@
 	  android:text="@string/entry_url" 
 	  style="@style/WhiteOnDarkSmall"
 	/>
-	<TextView android:id="@+id/entry_url" 
+	<TextView android:id="@+id/entry_url"
 	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:autoLink="all"

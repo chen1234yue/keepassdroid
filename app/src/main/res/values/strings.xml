@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
  Copyright 2009-2018 Brian Pellin.
      
  This file is part of KeePassDroid.
@@ -17,9 +16,7 @@
   You should have received a copy of the GNU General Public License
   along with KeePassDroid.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<resources
-  xmlns:tools="http://schemas.android.com/tools"
-  tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="about_feedback">Feedback:</string>
     <string name="about_homepage">Homepage:</string>
     <string name="AboutText">KeePassDroid is an Android implementation of the KeePass password manager.</string>
@@ -88,6 +85,9 @@
     <string name="error_invalid_db">Invalid database.</string>
     <string name="error_invalid_path">Invalid path.</string>
     <string name="error_no_name">A name is required.</string>
+    <string name="illegal_email_address">email address id illegal</string>
+    <string name="incorrect_code">indentifying code is wrong</string>
+    <string name="error_no_code">indentifying code is required</string>
     <string name="error_nopass">A password or a keyfile is required.</string>
     <string name="error_out_of_memory">The phone ran out of memory while parsing your database. It may be too large for your phone.</string>
     <string name="error_pass_gen_type">At least one password generation type must be selected</string>
@@ -158,6 +158,7 @@
     <string name="omitbackup_summary">Omit \'Backup\' group from search results (applies to .kdb only)</string>
     <string name="pass_filename">KeePass database filename:</string>
     <string name="password_title">Enter database password</string>
+    <string name="findpassword_title">input indentifying code sent to your email</string>
     <string name="progress_create">Creating new database&#8230;</string>
     <string name="progress_title">Working&#8230;</string>
     <string name="protection">Protection</string>
@@ -206,16 +207,27 @@
     <string name="fingerprint_notrecognized">Fingerprint not recognized</string>
     <string name="fingerprint_key_invalidated">Stored password no longer valid. Re-enter password</string>
     <string name="no_external_permissions">Permission to read and write external storage was denied</string>
+    <string name="info_password">password</string>
+    <string name="changepassword">changepassword</string>
+    <string name="info_email">email</string>
+    <string name="info_handphone">handphone</string>
+    <string name="info_name">name</string>
+    <string name="info_save">save</string>
+    <string name="info_cancel">cancel</string>
+    <string name="info_change_password">change</string>
+    <string name="menu_fill_infomation">fill infomation</string>
+    <string name="forget_password">forget pw</string>
+    <string name="input_indentifying_code">input indentifying code</string>
 
     <string-array name="clipboard_timeout_options">
-    	<item>30 seconds</item>
-    	<item>1 minute</item>
-    	<item>5 minutes</item>
-    	<item>Never</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>Never</item>
     </string-array>
     <string-array name="list_size_options">
-    	<item>Small</item>
-    	<item>Medium</item>
-    	<item>Large</item>
+        <item>Small</item>
+        <item>Medium</item>
+        <item>Large</item>
     </string-array>
 </resources>

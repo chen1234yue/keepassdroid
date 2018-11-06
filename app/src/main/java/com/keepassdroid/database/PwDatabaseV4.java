@@ -279,7 +279,20 @@ public class PwDatabaseV4 extends PwDatabase {
 		
 		return list;
 	}
+	@Override
+	public String getEmail() {
+		return null;
+	}
 
+	@Override
+	public String getHandphone() {
+		return null;
+	}
+
+	@Override
+	public String getInfoname() {
+		return null;
+	}
 	@Override
 	public List<PwGroup> getGrpRoots() {
 		return rootGroup.childGroups;

@@ -100,7 +100,7 @@ public class ImporterV4 extends Importer {
 
 		return openDatabase(inStream, password, keyInputStream, new UpdateStatus(), 0);
 	}
-	
+
 	@Override
     public PwDatabaseV4 openDatabase(InputStream inStream, String password,
             InputStream keyInputStream, UpdateStatus status, long roundsFix) throws IOException,
@@ -291,7 +291,8 @@ public class ImporterV4 extends Importer {
         EntryHistory,
 		EntryCustomData,
 		EntryCustomDataItem,
-        Binaries
+        Binaries,
+		SelfInfo
 	}
 
     private static final long DEFAULT_HISTORY_DAYS = 365;
@@ -390,7 +391,9 @@ public class ImporterV4 extends Importer {
 				return SwitchContext(ctx, KdbContext.Meta, xpp);
 			} else if ( name.equalsIgnoreCase(ElemRoot) ) {
 				return SwitchContext(ctx, KdbContext.Root, xpp);
-			} else {
+			} else if(name.equalsIgnoreCase(ElemSelfInfo)){
+				return SwitchContext(ctx,KdbContext.SelfInfo,xpp);
+			} else{
 				ReadUnknown(xpp);
 			}
 			break;
@@ -555,7 +558,15 @@ public class ImporterV4 extends Importer {
 				ReadUnknown(xpp);
 			}
 			break;
-			
+			case SelfInfo:
+				if(name.equalsIgnoreCase(ElemSelfName))
+					db.infoname = ReadString(xpp);
+				else if(name.equalsIgnoreCase(ElemSelfEmail))
+					db.email = ReadString(xpp);
+				else if(name.equalsIgnoreCase(ElemSelfHandphone))
+					db.handphone = ReadString(xpp);
+			    break;
+
 		case Group:
 			if ( name.equalsIgnoreCase(ElemUuid) ) {
 				ctxGroup.uuid = ReadUuid(xpp);
@@ -791,7 +802,10 @@ public class ImporterV4 extends Importer {
 			return KdbContext.KeePassFile;
 		} else if ( ctx == KdbContext.Root && name.equalsIgnoreCase(ElemRoot) ) {
 			return KdbContext.KeePassFile;
-		} else if ( ctx == KdbContext.MemoryProtection && name.equalsIgnoreCase(ElemMemoryProt) ) {
+		} else if (ctx == KdbContext.SelfInfo && name.equalsIgnoreCase(ElemSelfInfo)){
+			return KdbContext.KeePassFile;
+
+		}else if ( ctx == KdbContext.MemoryProtection && name.equalsIgnoreCase(ElemMemoryProt) ) {
 			return KdbContext.Meta;
 		} else if ( ctx == KdbContext.CustomIcons && name.equalsIgnoreCase(ElemCustomIcons) ) {
 			return KdbContext.Meta;

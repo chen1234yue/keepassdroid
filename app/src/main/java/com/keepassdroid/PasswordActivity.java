@@ -56,14 +56,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.keepass.FindpasswordActivity;
 import com.android.keepass.KeePass;
 import com.android.keepass.R;
 import com.keepassdroid.app.App;
 import com.keepassdroid.compat.ClipDataCompat;
 import com.keepassdroid.compat.StorageAF;
+import com.keepassdroid.database.edit.AddGroup;
 import com.keepassdroid.database.edit.LoadDB;
 import com.keepassdroid.database.edit.OnFinish;
 import com.keepassdroid.dialog.PasswordEncodingDialogHelper;
+import com.keepassdroid.email.Sendemail;
 import com.keepassdroid.fileselect.BrowserDialog;
 import com.keepassdroid.fingerprint.FingerPrintHelper;
 import com.keepassdroid.intents.Intents;
@@ -75,10 +78,19 @@ import com.keepassdroid.utils.Util;
 
 import org.spongycastle.util.Pack;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
+import java.util.Properties;
 
 import javax.crypto.Cipher;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
+import static com.keepassdroid.email.Sendemail.isEmail;
 
 public class PasswordActivity extends LockingActivity implements FingerPrintHelper.FingerPrintCallback {
 
@@ -92,6 +104,7 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
     private static final int FILE_BROWSE = 256;
     public static final int GET_CONTENT = 257;
     private static final int OPEN_DOC = 258;
+    public static final int FIND_PASSWORD = 259;
 
     private static final String[] READ_WRITE_PERMISSIONS =
             {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -115,6 +128,7 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
     private TextView confirmationView;
     private EditText passwordView;
     private Button confirmButton;
+    private byte[] icode;
 
     public static void Launch(
             Activity act,
@@ -156,7 +170,46 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
+            case FIND_PASSWORD:
+                if(resultCode == RESULT_OK)
+                {
+                    String code = data.getStringExtra(FindpasswordActivity.KEY_CODE);
+                    byte[] getcode = code.getBytes();
+                    int i;
+                    for(i=0;i<4;i++)
 
+                        if(icode[i]!=getcode[i])
+                            break;
+                    if(i==4&&icode.length==getcode.length)
+                    {
+                        String filename = mDbUri.getPath();
+                        String[] temp = filename.split("/");
+                        filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+                        File file=new File(filename);
+                        String to=null;
+                        if(file.isFile() && file.exists()) { //判断文件是否存在
+                            try {
+                                InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
+                                BufferedReader bufferedReader = new BufferedReader(read);
+                                String lineTxt = bufferedReader.readLine();
+                                lineTxt=bufferedReader.readLine();
+                                TextView passwordview = (TextView) findViewById(R.id.password);
+                                passwordview.setText(lineTxt);
+                                read.close();
+                            }catch (Exception e)
+                            {
+
+                            }
+
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(PasswordActivity.this, R.string.incorrect_code, Toast.LENGTH_LONG).show();
+                    }
+
+                }
+                break;
             case KeePass.EXIT_NORMAL:
                 setEditText(R.id.password, "");
                 App.getDB().clear();
@@ -218,10 +271,56 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
         confirmationView = (TextView) findViewById(R.id.fingerprint_label);
         passwordView = (EditText) findViewById(R.id.password);
 
+        Button forgetPwButton = (Button) findViewById(R.id.forget_password_button);
+        forgetPwButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                byte[] icode = getIndentifyCode();
+                String filename = mDbUri.getPath();
+                String[] temp = filename.split("/");
+                filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+                File file=new File(filename);
+                String to=null;
+                if(file.isFile() && file.exists()) { //判断文件是否存在
+                    try {
+                        InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
+                        BufferedReader bufferedReader = new BufferedReader(read);
+                        String lineTxt = bufferedReader.readLine();
+                        to=lineTxt;
+                        read.close();
+                    }catch (Exception e)
+                    {
+
+                    }
+
+                }
+                if(to!=null&&isEmail(to)) {
+                    new Thread(new Sendemail(icode, to)).start();
+                    FindpasswordActivity.Launch(PasswordActivity.this);
+                }
+                else
+                {
+                    Toast.makeText(PasswordActivity.this, R.string.illegal_email_address, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         new InitTask().execute(i);
 
         initForFingerprint();
     }
+    private byte[] getIndentifyCode()
+    {
+        Integer indentifyCode = ((int) (Math.random()*10000));
+        byte[] icode = indentifyCode.toString().getBytes();
+        byte[] result = new byte[4];
+        int i=0;
+        for(;i<4-icode.length;i++)
+            result[i]=0;
+        for(;i<4;i++)
+            result[i]=icode[i-(4-icode.length)];
+        this.icode=result;
+        return result;
+    }
+
 
     @Override
     protected void onResume() {

@@ -96,6 +96,21 @@ public class PwDatabaseV3 extends PwDatabase {
 		return entries;
 	}
 
+	@Override
+	public String getEmail() {
+		return null;
+	}
+
+	@Override
+	public String getHandphone() {
+		return null;
+	}
+
+	@Override
+	public String getInfoname() {
+		return null;
+	}
+
 	public void setGroups(List<PwGroup> grp) {
 		groups = grp;
 	}

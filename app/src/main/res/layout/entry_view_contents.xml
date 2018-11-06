@@ -42,7 +42,7 @@
 	  android:text="@string/entry_url" 
 	  style="@style/WhiteOnDarkSmall"
 	/>
-	<com.keepassdroid.view.TextViewSelect android:id="@+id/entry_url" 
+	<com.keepassdroid.view.TextViewSelect android:id="@+id/entry_url"
 	  android:layout_width="fill_parent"
 	  android:layout_height="wrap_content"
 	  android:autoLink="all"

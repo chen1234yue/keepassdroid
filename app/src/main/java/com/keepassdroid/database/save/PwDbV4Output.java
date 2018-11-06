@@ -148,7 +148,7 @@ public class PwDbV4Output extends PwDbOutput {
 			throw new PwDbOutputException(e);
 		}
 	}
-	
+
 	private class GroupWriter extends GroupHandler<PwGroup> {
 		private Stack<PwGroupV4> groupStack;
 		
@@ -209,7 +209,7 @@ public class PwDbV4Output extends PwDbOutput {
 		xml.startTag(null, ElemDocNode);
 		
 		writeMeta();
-		
+		writeSelfInfo();
 		PwGroupV4 root = (PwGroupV4) mPM.rootGroup;
 		xml.startTag(null, ElemRoot);
 		startGroup(root);
@@ -233,7 +233,14 @@ public class PwDbV4Output extends PwDbOutput {
 		xml.endDocument();
 		
 	}
-	
+	private void writeSelfInfo() throws IllegalArgumentException, IllegalStateException, IOException{
+		xml.startTag(null,ElemSelfInfo);
+		writeObject(ElemSelfName,mPM.infoname);
+		writeObject(ElemSelfEmail,mPM.email);
+		writeObject(ElemSelfHandphone,mPM.handphone);
+		xml.endTag(null,ElemSelfInfo);
+
+	}
 	private void writeMeta() throws IllegalArgumentException, IllegalStateException, IOException {
 		xml.startTag(null, ElemMeta);
 		

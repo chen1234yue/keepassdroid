@@ -67,6 +67,7 @@ public class SetPassword extends RunnableOnFinish {
 	
 	@Override
 	public void run() {
+		System.out.println("password");
 		PwDatabase pm = mDb.pm;
 		
 		byte[] backupKey = new byte[pm.masterKey.length];
