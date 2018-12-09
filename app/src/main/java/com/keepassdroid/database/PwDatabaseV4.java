@@ -281,17 +281,17 @@ public class PwDatabaseV4 extends PwDatabase {
 	}
 	@Override
 	public String getEmail() {
-		return null;
+		return email;
 	}
 
 	@Override
 	public String getHandphone() {
-		return null;
+		return handphone;
 	}
 
 	@Override
 	public String getInfoname() {
-		return null;
+		return infoname;
 	}
 	@Override
 	public List<PwGroup> getGrpRoots() {

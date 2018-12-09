@@ -215,7 +215,7 @@
     <string name="info_save">save</string>
     <string name="info_cancel">cancel</string>
     <string name="info_change_password">change</string>
-    <string name="menu_fill_infomation">fill infomation</string>
+    <string name="menu_fill_infomation">fill information</string>
     <string name="forget_password">forget pw</string>
     <string name="input_indentifying_code">input indentifying code</string>
 

@@ -19,7 +19,7 @@ import com.keepassdroid.database.edit.SetSelfinfo;
 
 import static java.security.AccessController.getContext;
 
-public class FillInfoActivity extends LockCloseHideActivity {
+public class FillInfoActivity extends Activity{//LockCloseHideActivity
 
     FillInfoActivity superthis = this;
     public static final String KEY_SELFNAME = "selfname";
@@ -60,22 +60,9 @@ public class FillInfoActivity extends LockCloseHideActivity {
                 String email = nameField.getText().toString();
                 nameField = (TextView) findViewById(R.id.info_handphone);
                 String handphone = nameField.getText().toString();
-                /*PwDatabase pm = App.getDB().pm;
-                pm.setInfoname(selfname);
-                pm.setEmail(email);
-                pm.setHandphone(handphone);*/
               SetSelfinfo si = new SetSelfinfo(FillInfoActivity.this, App.getDB(),selfname,email,handphone,new AfterSave(new Handler()));
-               /* ProgressTask pt = new ProgressTask(this, si, R.string.saving_database);
-                pt.run();*/
                 ProgressTask pt = new ProgressTask(FillInfoActivity.this, si, R.string.saving_database);
                 pt.run();
-              // finish();
-               /* final Intent intent = new Intent();
-
-                intent.putExtra(KEY_SELFNAME, selfname);
-                intent.putExtra(KEY_EMAIL, email);
-                intent.putExtra(KEY_HANDPHONE,handphone);
-                setResult(Activity.RESULT_OK, intent);*/
 
             }
         });

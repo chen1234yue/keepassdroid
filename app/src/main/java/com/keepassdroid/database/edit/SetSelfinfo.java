@@ -33,16 +33,20 @@ public class SetSelfinfo extends RunnableOnFinish {
       //  this(ctx, db, name,email,handphone, keyfile, finish, false);
 
     }
+    public void setPwDataBase()
+    {
+        PwDatabase pm = mDb.pm;
+        pm.setEmail(memail);
+        pm.setHandphone(mhandphone);
+        pm.setInfoname(mname);
+    }
     @Override
     public void run() {
-System.out.println("Self infomation");
+        setPwDataBase();
         PwDatabase pm = mDb.pm;
         String backupName = pm.getInfoname();
         String backupEmail = pm.getEmail();
         String backupHandphone = pm.getHandphone();
-        pm.setEmail(memail);
-        pm.setHandphone(mhandphone);
-        pm.setInfoname(mname);
         mFinish = new AfterSave(backupName,backupEmail,backupHandphone, mFinish);
         SaveDB save = new SaveDB(ctx, mDb, mFinish, mDontSave);
         save.run();

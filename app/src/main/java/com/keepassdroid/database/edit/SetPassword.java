@@ -69,7 +69,7 @@ public class SetPassword extends RunnableOnFinish {
 	public void run() {
 		System.out.println("password");
 		PwDatabase pm = mDb.pm;
-		
+		pm.pass = mPassword;
 		byte[] backupKey = new byte[pm.masterKey.length];
 		System.arraycopy(pm.masterKey, 0, backupKey, 0, backupKey.length);
 

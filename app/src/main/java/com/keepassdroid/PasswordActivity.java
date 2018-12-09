@@ -161,7 +161,29 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
         act.startActivityForResult(i, 0);
 
     }
+    public static String getpass(String path)
+    {
+        String filename = path;
+        String[] temp = filename.split("/");
+        filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+        File file=new File(filename);
+        String lineTxt=null;
+        if(file.isFile() && file.exists()) { //判断文件是否存在
+            try {
+                InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
+                BufferedReader bufferedReader = new BufferedReader(read);
+                lineTxt = bufferedReader.readLine();
+                lineTxt=bufferedReader.readLine();
 
+                read.close();
+            }catch (Exception e)
+            {
+
+            }
+
+        }
+        return lineTxt;
+    }
     @Override
     protected void onActivityResult(
             int requestCode,
@@ -182,26 +204,8 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
                             break;
                     if(i==4&&icode.length==getcode.length)
                     {
-                        String filename = mDbUri.getPath();
-                        String[] temp = filename.split("/");
-                        filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
-                        File file=new File(filename);
-                        String to=null;
-                        if(file.isFile() && file.exists()) { //判断文件是否存在
-                            try {
-                                InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
-                                BufferedReader bufferedReader = new BufferedReader(read);
-                                String lineTxt = bufferedReader.readLine();
-                                lineTxt=bufferedReader.readLine();
-                                TextView passwordview = (TextView) findViewById(R.id.password);
-                                passwordview.setText(lineTxt);
-                                read.close();
-                            }catch (Exception e)
-                            {
-
-                            }
-
-                        }
+                        TextView passwordview = (TextView) findViewById(R.id.password);
+                        passwordview.setText(getpass(mDbUri.getPath()));
                     }
                     else
                     {
@@ -253,7 +257,10 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
                 break;
         }
     }
-
+    private void setIcode(byte[] icode )
+    {
+        this.icode=icode;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -275,24 +282,8 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
         forgetPwButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 byte[] icode = getIndentifyCode();
-                String filename = mDbUri.getPath();
-                String[] temp = filename.split("/");
-                filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
-                File file=new File(filename);
-                String to=null;
-                if(file.isFile() && file.exists()) { //判断文件是否存在
-                    try {
-                        InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
-                        BufferedReader bufferedReader = new BufferedReader(read);
-                        String lineTxt = bufferedReader.readLine();
-                        to=lineTxt;
-                        read.close();
-                    }catch (Exception e)
-                    {
-
-                    }
-
-                }
+                setIcode(icode);
+                String to = getEmailAddress(mDbUri.getPath());
                 if(to!=null&&isEmail(to)) {
                     new Thread(new Sendemail(icode, to)).start();
                     FindpasswordActivity.Launch(PasswordActivity.this);
@@ -307,20 +298,46 @@ public class PasswordActivity extends LockingActivity implements FingerPrintHelp
 
         initForFingerprint();
     }
-    private byte[] getIndentifyCode()
+    public static String getEmailAddress(String name)
+    {
+        String filename = name;
+        String[] temp = filename.split("/");
+        filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+        File file=new File(filename);
+        String to=null;
+        if(file.isFile() && file.exists()) { //判断文件是否存在
+            try {
+                InputStreamReader read = new InputStreamReader(new FileInputStream(file));//考虑到编码格式
+                BufferedReader bufferedReader = new BufferedReader(read);
+                String lineTxt = bufferedReader.readLine();
+                to=lineTxt;
+                read.close();
+            }catch (Exception e)
+            {
+
+            }
+
+        }
+        return to;
+    }
+    public static byte[] getIndentifyCode()
     {
         Integer indentifyCode = ((int) (Math.random()*10000));
+
+        return formatCode(indentifyCode);
+    }
+    public static byte[] formatCode(Integer indentifyCode)
+    {
         byte[] icode = indentifyCode.toString().getBytes();
         byte[] result = new byte[4];
         int i=0;
         for(;i<4-icode.length;i++)
-            result[i]=0;
+            result[i]='0';
         for(;i<4;i++)
             result[i]=icode[i-(4-icode.length)];
-        this.icode=result;
+
         return result;
     }
-
 
     @Override
     protected void onResume() {

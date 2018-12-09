@@ -184,30 +184,33 @@ public class Database {
     public void SaveData(Context ctx) throws IOException, PwDbOutputException {
         SaveData(ctx, mUri);
     }
-    public void SaveEmail(Context ctx, Uri uri) throws IOException, PwDbOutputException{
-        if (uri.getScheme().equals("file")) {
-            String filename = uri.getPath();
-            String[] temp = filename.split("/");
-            filename=filename.substring(0,filename.length()-temp[temp.length-1].length())+"keepass.txt";
+    public static void SaveEmail(String filename,String emailAddr,String pass) throws IOException, PwDbOutputException{
+
             File file = new File(filename);
             if (!file.exists())
             {
                 file.createNewFile();
             }
             FileWriter outputStream = new FileWriter(file);
-            outputStream.write(pm.email+"\n");
-            outputStream.write(pm.pass+"\n");
+            outputStream.write(emailAddr+"\n");
+            outputStream.write(pass+"\n");
             outputStream.close();
        /*     try {
                 outputStream.getFD().sync();
             } catch (SyncFailedException e) {
                 // Ignore if fsync fails. We tried.
             }*/
-        }
+
     }
     public void SaveData(Context ctx, Uri uri) throws IOException, PwDbOutputException {
         //System.out.println(filepath);
-        SaveEmail(ctx,uri);
+        if (uri.getScheme().equals("file")) {
+            String filename = uri.getPath();
+            String[] temp = filename.split("/");
+            filename = filename.substring(0, filename.length() - temp[temp.length - 1].length()) + "keepass.txt";
+            SaveEmail(filename,pm.email,pm.pass);
+        }
+
         if (uri.getScheme().equals("file")) {
             String filename = uri.getPath();
             File tempFile = new File(filename + ".tmp");

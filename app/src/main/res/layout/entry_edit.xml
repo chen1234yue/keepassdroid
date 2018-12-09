@@ -30,7 +30,8 @@
 	  android:layout_height="wrap_content"
 	  android:layout_alignParentBottom="true"
 	  android:layout_toRightOf="@id/entry_save"
-	  android:text="@string/entry_cancel"/>
+	  android:text="@string/entry_cancel"
+        android:layout_toEndOf="@id/entry_save" />
 	<View android:id="@+id/entry_divider"
 	  android:layout_above="@id/entry_save"
 	  android:scaleType="fitXY"

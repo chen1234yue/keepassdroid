@@ -28,7 +28,7 @@ public class Sendemail implements Runnable {
 
     @Override
     public void run() {
-        if(to!=null&&isEmail(to))sendEmail1();
+        if(to!=null&&isEmail(to))sendEmail1(to,icode);
     }
     public static boolean isEmail(String string) {
         if (string == null)
@@ -43,7 +43,7 @@ public class Sendemail implements Runnable {
         else
             return false;
     }
-    public  void sendEmail1()
+    public static void sendEmail1(String to,byte[] icode)
     {
         String sendUserName = "chen1234yue@163.com";
         String sendPassword = "chen970725";

@@ -33,19 +33,16 @@ public class FindpasswordActivity extends Activity {
             {
                 TextView codeField = (TextView) findViewById(R.id.input_indentify_code);
                 String code = codeField.getText().toString();
-
                 if ( code.length() > 0 )
                 {
                     final Intent intent = new Intent();
-
                     intent.putExtra(KEY_CODE, code);
                     setResult(Activity.RESULT_OK, intent);
-
                     finish();
                 }
                 else
                 {
-                    Toast.makeText(FindpasswordActivity.this, R.string.error_no_name, Toast.LENGTH_LONG).show();
+                    Toast.makeText(FindpasswordActivity.this, R.string.error_no_code, Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -57,7 +54,6 @@ public class FindpasswordActivity extends Activity {
             {
                 final Intent intent = new Intent();
                 setResult(Activity.RESULT_CANCELED, intent);
-
                 finish();
             }
         });
