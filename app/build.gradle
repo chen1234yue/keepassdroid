@@ -4,6 +4,11 @@ android {
     compileSdkVersion = 27
     buildToolsVersion = '27.0.3'
 
+    lintOptions {
+
+        checkReleaseBuilds false
+        abortOnError false
+    }
     defaultConfig {
         applicationId = "com.android.keepass"
         minSdkVersion 14
